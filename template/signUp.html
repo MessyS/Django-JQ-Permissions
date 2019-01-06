@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>注册 | Messy的小博客</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="shortcut icon" href="{% static 'img/icon-logo.png' %}" type="image/x-icon"/>
+	    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}"/>
+	    <link rel="stylesheet" type="text/css" href="{% static 'logIn.min.css' %}"/>
+	</head>
+	<body>
+		<div class="g-login-bgi"></div>
+		
+		<div class="g-login-msg">
+			<div class="g-signUp-msg">
+				<img src="{% static 'img/group-icon-logo.png' %}" alt="Messy的logo" class="g-logo"  value="{{ usermsg.name }}"/>
+				<form autocomplete='off' method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+					<div class="g-user">
+                        <span id='j-user-ero'></span>
+						<img id='j-user-yes' src="{% static 'img/yes.png' %}"/>
+						<input type="text" placeholder="用户名" name='name' id='s-user' data-rule="maxlength:10|minlength:2|nullable:true" value="{{ usermsg.name }}"/>
+					</div>
+					<div class="g-eamil">
+                        <span id='j-email-ero'></span>
+						<img id='j-email-yes' src="{% static 'img/yes.png' %}"/>
+						<input type="text" placeholder="邮箱" name='email' id='s-eamil' data-rule="minlength:6|nullable:false|isemail:true" value="{{ usermsg.email }}"/>
+					</div>
+					<div class="g-passwd">
+                        <span id='j-passwd-ero'></span>
+						<img id='j-passwd-yes' src="{% static 'img/logIn/yes.png' %}"/>
+						<input type="password" placeholder="密码" name='passwd' id='s-passwd' data-rule="maxlength:20|minlength:6|nullable:false"/>
+					</div>
+                    <div class="g-confirm-passwd">
+						<span id='j-confirm-passwd-ero' style="margin: -20px 0 0 0;"></span>
+						<img id='j-confirm-passwd-yes' src="{% static 'img/yes.png' %}"/>
+						<input type="password" placeholder="Password" name='confirm-passwd' id='s-confirm-passwd' data-rule="nullable:false"/>
+					</div>
+
+                    <span id="s-ero" style="float: left;display: inline-block;color:red;margin-top:-20px">{{ ero }}</span>
+
+					<div class="g-submit">
+                        <button type="submit" id='s-login-submit' style="margin-top:5px">注册</button>
+					</div>
+				</form>
+
+                <div class="g-signUp" style="bottom: -5px;">
+                    <a href="/login/">返回登录</a>
+                </div>
+			</div>
+		</div>
+        <script src="{% static 'jquery.min.js' %}"></script>
+        <script src="{% static 'validation.min.js' %}"></script>
+        <script src="{% static 'login.min.js' %}"></script>
+        <script>
+            $('input').focus(function () {
+                $('#s-ero').css('display','none')
+            });
+            $('input').blur(function () {
+                $('#s-ero').css('display','inline-block')
+            });
+        </script>
+	</body>
+</html>

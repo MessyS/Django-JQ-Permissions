@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>登录 | Messy的小博客</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	   <link rel="shortcut icon" href="{% static 'img/icon-logo.png' %}" type="image/x-icon"/>
+	    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}"/>
+	    <link rel="stylesheet" type="text/css" href="{% static 'logIn.min.css' %}"/>
+	</head>
+	<body>
+		<div class="g-login-bgi"></div>
+		
+		<div class="g-login-msg">
+			<img src="{% static 'img/group-icon-logo.png' %}" alt="Messy的logo" class="g-logo" />
+			<form action="." autocomplete='off' method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+				<div class="g-user">
+					<input type="text" placeholder="用户名/邮箱" name='name' id='s-user' value="{{ username }}"/>
+				</div>
+				<div class="g-passwd">
+					<input type="password" placeholder="密码" name='password' id='s-passwd' />
+				</div>
+
+                <span id="s-ero" style="float: left;display: inline-block;color:red;margin-top:-20px">{{ ero }}</span>
+
+                <div class="g-forget">
+					<a href='/reset/'><img src="{% static 'img/lock.png' %}" height="16">重置密码?</a>
+				</div>
+				<div class="g-submit">
+                    <input type="submit" id='s-login-submit' value="登录">
+				</div>
+                <input type="hidden" name="next" id="s-next"/>
+			</form>
+			
+			<div class="g-signUp">
+				<p>没有账号?其实<a href="/sign_up/">注册</a>也没有！(〃'▽'〃)</p>
+			</div>
+		</div>
+        <script src="{% static 'jquery.min.js' %}"></script>
+        <script>
+            {#input获得焦点取消ero显示#}
+            $('input').focus(function () {
+                $('#s-ero').css('display','none')
+            });
+            $('input').blur(function () {
+                $('#s-ero').css('display','inline-block')
+            });
+
+            var next;
+            var url = window.location.href;
+            var next_index = url.indexOf('?next=');
+            if(next_index == -1){
+                next = '';
+            }else{
+                var result = next_index + 6;
+                next = url.substring(result);
+            }
+
+            $("#s-next").attr('value',next)
+        </script>
+	</body>
+</html>

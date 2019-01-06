@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>重置密码 | Messy的小博客</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="shortcut icon" href="{% static 'imgicon-logo.png' %}" type="image/x-icon"/>
+	    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}"/>
+	    <link rel="stylesheet" type="text/css" href="{% static 'logIn.min.css' %}"/>
+	</head>
+	<body>
+		<div class="g-login-bgi"></div>
+		
+		<div class="g-login-msg">
+			<div class="g-reset-msg">
+				<img src="{% static 'img/group-icon-logo.png' %}" alt="Messy的logo" class="g-logo" />
+				<form action="." autocomplete='off' method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+					<h3>真的要重置吗？</h3>
+					<div class="g-user">
+						<input type="text" id="s-user" placeholder="用户名/邮箱" name='name' value="{{ usermsg.name }}"/>
+					</div>
+	                <div class="g-old-passwd">
+						<input type="password" id="s-eamil" placeholder="旧密码" name='old_passwd' value="{{ usermsg.oldpasswd }}"/>
+					</div>
+	                <div class="g-new-passwd">
+						<input type="password" id="s-eamil" placeholder="新密码" name='new_passwd'/>
+					</div>
+	                <div class="g-confirm-passwd">
+						<input type="password" id="s-eamil" placeholder="确认密码" name='confirm_passwd'/>
+					</div>
+
+                    <span id="s-ero" style="float: left;display: inline-block;color:red;margin-top:-20px">{{ ero }}</span>
+
+					<div class="g-submit">
+						<input type="submit" id='s-reset-submit' value="重置">
+					</div>
+
+                    <div class="g-signUp" style="bottom: -15px;">
+                        <a href="/login/">返回登录</a>
+                    </div>
+				</form>
+			</div>
+		</div>
+	</body>
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script>
+        $('input').focus(function () {
+            $('#s-ero').css('display','none')
+        });
+        $('input').blur(function () {
+            $('#s-ero').css('display','inline-block')
+        })
+    </script>
+</html>
